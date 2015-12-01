@@ -21,7 +21,7 @@ var getSources = function() {
     });
 };
 
-app.get('/simple', function (req, res) {
+app.get('/', function (req, res) {
     var app = {
         "name": "Vizydrop Samples",
         "version": "2.0",
@@ -37,11 +37,11 @@ app.get('/simple', function (req, res) {
     res.json(app);
 });
 
-app.post('/simple/validate', function (req, res) {
+app.post('/validate', function (req, res) {
     res.json({ name: 'Vizydrop Samples' });
 });
 
-app.post("/simple", function(req, res) {
+app.post("/", function(req, res) {
     var sourceId = req.body.source;
     var source = sources[sourceId];
     request(source.url).pipe(res);
