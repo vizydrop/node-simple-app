@@ -1,0 +1,15 @@
+{
+  "name": "vizydrop",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node simple-custom-app.js"
+  },
+  "dependencies": {
+    "express": "*",
+    "compression": "*",
+    "body-parser": "*",
+    "request": "*",
+    "underscore": "*"
+  }
+}
+        
