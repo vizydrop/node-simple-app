@@ -1,14 +1,15 @@
 var express = require('express');
 var app = express();
-var _ = require("underscore");
+var _ = require('underscore');
 var bodyParser = require('body-parser');
-var request = require("request");
+var request = require('request');
+var resolve = require('path').resolve;
 
 app.use(bodyParser.json());
 
 var sources = {
-    "flowers": { name: 'Flowers', url: "https://raw.githubusercontent.com/vizydrop/data-samples/master/flowers.csv" },
-    "germany": { name: 'Germany Unemployment', url: "https://raw.githubusercontent.com/vizydrop/data-samples/master/Germany%20unemployment%20rate%20.csv" }
+    flowers: { name: 'Flowers', url: 'https://raw.githubusercontent.com/vizydrop/data-samples/master/flowers.csv' },
+    germany: { name: 'Germany Unemployment', url: 'https://raw.githubusercontent.com/vizydrop/data-samples/master/Germany%20unemployment%20rate%20.csv' }
 };
 
 var getSources = function() {
@@ -21,17 +22,21 @@ var getSources = function() {
     });
 };
 
+app.get('/logo', function(req, res) {
+    res.sendFile(resolve('./logo.svg'));
+});
+
 app.get('/', function (req, res) {
     var app = {
-        "name": "Vizydrop Samples",
-        "version": "2.0",
-        "description": "The set of samples to check vizydrop in action",
-        "authentication": [{
-            "id": "none",
-            "name": "This information is public",
-            "description": "There is no any authentication required. Just press [Connect] button and proceed to charts beauty"
+        'name': 'Vizydrop Samples',
+        'version': '2.0',
+        'description': 'The set of samples to check vizydrop in action',
+        'authentication': [{
+            'id': 'none',
+            'name': 'This information is public',
+            'description': 'There is no any authentication required. Just press [Connect] button and proceed to charts beauty'
         }],
-        "sources": getSources()
+        'sources': getSources()
     };
 
     res.json(app);
@@ -41,7 +46,7 @@ app.post('/validate', function (req, res) {
     res.json({ name: 'Vizydrop Samples' });
 });
 
-app.post("/", function(req, res) {
+app.post('/', function(req, res) {
     var sourceId = req.body.source;
     var source = sources[sourceId];
     request(source.url).pipe(res);
