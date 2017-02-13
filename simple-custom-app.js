@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var _ = require('underscore');
+var _ = require('lodash');
 var bodyParser = require('body-parser');
 var resolve = require('path').resolve;
 var fs = require('fs');
@@ -12,18 +12,55 @@ var sendCsvFileAsIs = function (req, res) {
 };
 
 var sendFilteredJsonFile = function (req, res) {
+    var data = require('./data/' + req.body.source + '.json');
+    var companyFilter = req.body.filter['company'] || [];
+    var price = req.body.filter['price'] || 0;
+    if (!_.isEmpty(companyFilter)) {
+        data = _.filter(data, function(row) { return  _.includes(companyFilter, row.company); });
+    }
 
+    data = _.filter(data, function (row) {
+       return row.price >= price;
+    });
+
+    res.json(data);
 };
 
 var dataProcessor = {
     'flowers': sendCsvFileAsIs,
-    'salaries': sendCsvFileAsIs
+    'salaries': sendCsvFileAsIs,
+    'stocks': sendFilteredJsonFile
 };
 
 var getSources = function () {
     return [
         {id: 'flowers', name: 'Flowers'},
-        {id: 'salaries', name: 'Salaries'}
+        {id: 'salaries', name: 'Salaries'},
+        {
+            id: 'stocks', name: 'Stocks',
+            filter: [
+                {
+                    id: 'price',
+                    title: 'Bottom Price',
+                    optional: true,
+                    type: 'number'
+                },
+                {
+                    id: 'company',
+                    title: 'Companies',
+                    optional: true,
+                    placeholder: 'Select companies',
+                    private: true,
+                    type: 'multilist',
+                    data: [
+                        {title: 'Apple', value: 'AAPL'},
+                        {title: 'Microsoft', value: 'MSFT'},
+                        {title: 'IBM', value: 'IBM'},
+                        {title: 'Amazon', value: 'AMZN'}
+                    ]
+                }
+            ]
+        }
     ];
 };
 
@@ -43,7 +80,6 @@ app.get('/', function (req, res) {
         }],
         'sources': getSources()
     };
-
     res.json(app);
 });
 
