@@ -1,6 +1,6 @@
 {
   "name": "vizydrop",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "start": "node simple-custom-app.js"
   },
@@ -8,8 +8,7 @@
     "express": "*",
     "compression": "*",
     "body-parser": "*",
-    "request": "*",
-    "underscore": "*"
+    "lodash": "*"
   }
 }
         

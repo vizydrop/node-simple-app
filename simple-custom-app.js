@@ -2,19 +2,20 @@ var express = require('express');
 var app = express();
 var _ = require('underscore');
 var bodyParser = require('body-parser');
-var request = require('request');
 var resolve = require('path').resolve;
+var fs = require('fs');
 
 app.use(bodyParser.json());
 
 var sources = {
-    flowers: { name: 'Flowers', url: 'https://raw.githubusercontent.com/vizydrop/data-samples/master/flowers.csv' },
-    germany: { name: 'Germany Unemployment', url: 'https://raw.githubusercontent.com/vizydrop/data-samples/master/Germany%20unemployment%20rate%20.csv' }
+    flowers: {name: 'Flowers'},
+    salaries: {name: 'Salaries'},
+    stocks: {name: 'Stocks'}
 };
 
-var getSources = function() {
+var getSources = function () {
 
-    return _.keys(sources).map(function(key) {
+    return _.keys(sources).map(function (key) {
         return {
             id: key,
             name: sources[key].name
@@ -22,7 +23,7 @@ var getSources = function() {
     });
 };
 
-app.get('/logo', function(req, res) {
+app.get('/logo', function (req, res) {
     res.sendFile(resolve('./logo.svg'));
 });
 
@@ -43,13 +44,11 @@ app.get('/', function (req, res) {
 });
 
 app.post('/validate', function (req, res) {
-    res.json({ name: 'Vizydrop Samples' });
+    res.json({name: 'Vizydrop Samples'});
 });
 
-app.post('/', function(req, res) {
-    var sourceId = req.body.source;
-    var source = sources[sourceId];
-    request(source.url).pipe(res);
+app.post('/', function (req, res) {
+    res.sendfile(resolve('./data/' +  req.body.source + '.csv'));
 });
 
 app.listen(process.env.PORT || 8080);

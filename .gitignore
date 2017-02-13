@@ -36,3 +36,5 @@ node/.idea/
 node/.idea/jsLibraryMappings.xml
 
 node/.idea/libraries/node_node_modules.xml
+
+yarn.lock
