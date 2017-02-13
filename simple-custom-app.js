@@ -7,20 +7,24 @@ var fs = require('fs');
 
 app.use(bodyParser.json());
 
-var sources = {
-    flowers: {name: 'Flowers'},
-    salaries: {name: 'Salaries'},
-    stocks: {name: 'Stocks'}
+var sendCsvFileAsIs = function (req, res) {
+    res.sendFile(resolve('./data/' + req.body.source + '.csv'));
+};
+
+var sendFilteredJsonFile = function (req, res) {
+
+};
+
+var dataProcessor = {
+    'flowers': sendCsvFileAsIs,
+    'salaries': sendCsvFileAsIs
 };
 
 var getSources = function () {
-
-    return _.keys(sources).map(function (key) {
-        return {
-            id: key,
-            name: sources[key].name
-        }
-    });
+    return [
+        {id: 'flowers', name: 'Flowers'},
+        {id: 'salaries', name: 'Salaries'}
+    ];
 };
 
 app.get('/logo', function (req, res) {
@@ -48,7 +52,7 @@ app.post('/validate', function (req, res) {
 });
 
 app.post('/', function (req, res) {
-    res.sendfile(resolve('./data/' +  req.body.source + '.csv'));
+    dataProcessor[req.body.source](req, res);
 });
 
 app.listen(process.env.PORT || 8080);
