@@ -32,6 +32,7 @@ app.post('/authenticate', function (req, res) {
     res.json({
         id: '123',
         host: 'local',
+        name: 'username',
         groups: ['collaborator'],
         companies: [
             {
