@@ -5,9 +5,14 @@
     "start": "node simple-custom-app.js"
   },
   "dependencies": {
-    "express": "*",
-    "compression": "*",
-    "body-parser": "*",
-    "lodash": "*"
+    "@vizydrop/correlation-id": "3.0.0",
+    "@vizydrop/logger": "1.2.3",
+    "body-parser": "1.18.3",
+    "compression": "1.7.4",
+    "express": "4.16.4",
+    "hat": "0.0.3",
+    "lodash": "4.17.11",
+    "morgan": "1.9.1",
+    "uuid": "3.3.2"
   }
 }

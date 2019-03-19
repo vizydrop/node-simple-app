@@ -6,7 +6,7 @@ case "$1" in
     ;;
 
   run-fake-auth-server)
-    pm2 start fake-auth-app.js --no-daemon --max-memory-restart 300M --name "fake-auth-app"
+    node ./fake-auth-app/index.js
     ;;
 
   *)
