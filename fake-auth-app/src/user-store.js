@@ -9,9 +9,13 @@ const revokeAccess = (token) => {
     }
 };
 
-const getUser = (token, newUserCompanies) => {
+const getUser = (token, companies) => {
     const existingUser = users.get(token);
     if (existingUser) {
+        if (companies) {
+            existingUser.companies = companies;
+        }
+
         return existingUser;
     }
 
@@ -22,7 +26,7 @@ const getUser = (token, newUserCompanies) => {
         id: userId,
         name: `User_${userId}`,
         groups: [`collaborator`],
-        companies: newUserCompanies || [
+        companies: companies || [
             {
                 groups: [
                     `collaborator`,
