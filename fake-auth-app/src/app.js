@@ -42,7 +42,9 @@ function createApp() {
             return res.sendStatus(401);
         }
 
-        const user = userStore.getUser(token, req.body.fields.companies);
+        const companies = req.body.fields.companies;
+
+        const user = userStore.getUser(token, Array.isArray(companies) ? companies : null);
         if (user.blocked) {
             res.sendStatus(401);
         }
