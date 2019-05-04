@@ -58,9 +58,9 @@ function createApp() {
 
     app.post(`/avatar`, (req, res) => {
         const user = userStore.getUser(req.body.fields.token);
-        req.body = {
+        res.json({
             url: user ? user.avatar : null,
-        };
+        });
     });
 
     app.post(`/api/v1/users`, (req, res) => {
