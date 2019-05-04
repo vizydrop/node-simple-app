@@ -44,7 +44,7 @@ function createApp() {
 
         const companies = req.body.fields.companies;
 
-        const user = userStore.getUser(token, Array.isArray(companies) ? companies : null);
+        const user = userStore.getOrCreateUser(token, Array.isArray(companies) ? companies : null);
         if (user.blocked) {
             res.sendStatus(401);
         }
@@ -54,6 +54,17 @@ function createApp() {
 
     app.post(`/validate`, (req, res) => {
         res.json({});
+    });
+
+    app.post(`/avatar`, (req, res) => {
+        const user = userStore.getUser(req.body.fields.token);
+        req.body = {
+            url: user ? user.avatar : null,
+        };
+    });
+
+    app.post(`/api/v1/users`, (req, res) => {
+        res.json(userStore.createOrUpdateUser(req.body));
     });
 
     return app;

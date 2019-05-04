@@ -6,7 +6,7 @@ case "$1" in
     ;;
 
   run-fake-auth-server)
-    node ./fake-auth-app/index.js
+    exec node ./fake-auth-app/index.js
     ;;
 
   *)

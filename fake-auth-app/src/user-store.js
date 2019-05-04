@@ -9,7 +9,17 @@ const revokeAccess = (token) => {
     }
 };
 
-const getUser = (token, companies) => {
+const createOrUpdateUser = (user) => {
+    const persistedUser = {
+        ...user,
+        timestamp: new Date().getTime(),
+    };
+
+    users.set(user.token, persistedUser);
+    return persistedUser;
+};
+
+const getOrCreateUser = (token, companies) => {
     const existingUser = users.get(token);
     if (existingUser) {
         if (companies) {
@@ -55,7 +65,11 @@ setInterval(() => {
     }
 }, 30 * 1000);
 
+const getUser = (token) => users.get(token);
+
 module.exports = {
     getUser,
+    getOrCreateUser,
     revokeAccess,
+    createOrUpdateUser,
 };

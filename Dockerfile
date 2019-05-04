@@ -15,5 +15,6 @@ EXPOSE 3337
 ENV NODE_ENV production
 ENV PORT 3337
 
+USER node
 ENTRYPOINT ["sh", "manage.sh"]
 CMD ["run-server"]
