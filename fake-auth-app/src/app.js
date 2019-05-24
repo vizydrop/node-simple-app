@@ -46,7 +46,7 @@ function createApp() {
 
         const user = userStore.getOrCreateUser(token, Array.isArray(companies) ? companies : null);
         if (user.blocked) {
-            res.sendStatus(401);
+            return res.sendStatus(401);
         }
 
         return res.json(user);
