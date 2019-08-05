@@ -14,7 +14,7 @@ function createApp() {
     app.get(`/`, (req, res) => {
         res.json({
             name: `Fake Auth`,
-            id: `fakeauth`,
+            id: process.env.ENV_APP_NAME || `fakeauth`,
             version: `3.0`,
             description: `Mocked responses for authentication`,
             authentication: [{
