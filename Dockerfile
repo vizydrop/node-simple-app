@@ -1,18 +1,16 @@
-FROM node:9.4.0-alpine
+FROM node:14.13.0-alpine
 
 WORKDIR /node-simple-app
 
-RUN yarn global add pm2@2.9.2
-
 COPY package.json yarn.lock ./
 
+ENV NODE_ENV production --production
 RUN yarn install
 
 COPY . .
 
 EXPOSE 3337
 
-ENV NODE_ENV production
 ENV PORT 3337
 
 USER node
