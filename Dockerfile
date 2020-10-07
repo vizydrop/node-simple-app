@@ -4,8 +4,8 @@ WORKDIR /node-simple-app
 
 COPY package.json yarn.lock ./
 
-ENV NODE_ENV production --production
-RUN yarn install
+ENV NODE_ENV production
+RUN yarn install --production
 
 COPY . .
 
