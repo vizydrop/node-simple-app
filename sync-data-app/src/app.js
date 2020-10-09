@@ -80,16 +80,19 @@ function createApp() {
         items: [
           {
             id: `repo-1`,
+            name: `1`,
             fullName: `Repo 1`,
             createdAt: `2018-11-26T11:51:25Z`,
           },
           {
             id: `repo-2`,
+            name: `2`,
             fullName: `Repo 2`,
             createdAt: `2018-11-26T11:51:25Z`,
           },
           {
             id: `repo-3`,
+            name: `3`,
             fullName: `Repo 3`,
             createdAt: `2018-11-26T11:51:25Z`,
           },
@@ -102,11 +105,13 @@ function createApp() {
         items: [
           {
             id: `pr1_repo-1`,
+            name: `PR 1`,
             title: `PR 1`,
             active: true,
           },
           {
             id: `pr2_repo-1`,
+            name: `PR 2`,
             title: `PR 2`,
             active: true,
           },
@@ -120,11 +125,13 @@ function createApp() {
   app.post(`/api/v1/synchronizer/schema`, (req, res) => {
     const pullrequests = {
       id: { type: `id`, name: `Id` },
+      name: { type: `text`, name: `Name` },
       title: { type: `text`, name: `Title` },
     };
 
     res.json({
       repositories: {
+        name: { type: `text`, name: `Name` },
         id: {
           type: `id`,
           name: `Id`,
