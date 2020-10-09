@@ -36,7 +36,7 @@ function createApp() {
     });
   });
   app.post(`/validate`, (req, res) => {
-    res.json({});
+    res.json({ name: `Test account` });
   });
 
   app.post(`/api/v1/synchronizer/config`, (req, res) => {
