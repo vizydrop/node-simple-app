@@ -138,7 +138,7 @@ function createApp() {
         },
         fullName: {
           type: `text`,
-          name: `Name`,
+          name: `Full Name`,
         },
         createdAt: {
           type: `date`,
